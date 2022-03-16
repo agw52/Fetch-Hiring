@@ -31,7 +31,7 @@ import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
     List<String> groups, names1, names2, names3, names4;
-    Map<String, List<String>> entrys;
+    Map<String, List<String>> entries;
     ExpandableListAdapter listAdapter;
     Handler mainHandler = new Handler();
     Button button;
@@ -49,23 +49,23 @@ ExpandableListView resultsArea;
         names2 = new ArrayList<>();
         names3 = new ArrayList<>();
         names4 = new ArrayList<>();
-        entrys = new HashMap<String, List<String>>();
+        entries = new HashMap<String, List<String>>();
         /*resultsArea.setOnGroupExpandListener(new ExpandableListView.OnGroupExpandListener() {
             @Override
             public void onGroupExpand(int i) {
 
             }
         });*/
-        listAdapter = new MyExpandableListAdapter(MainActivity.this, entrys, groups);
+        listAdapter = new MyExpandableListAdapter(MainActivity.this, entries, groups);
         resultsArea.setAdapter(listAdapter);
         groups.add("1");
         groups.add("2");
         groups.add("3");
         groups.add("4");
-        entrys.put(groups.get(0), names1);
-        entrys.put(groups.get(1), names2);
-        entrys.put(groups.get(2), names3);
-        entrys.put(groups.get(3), names4);
+        entries.put(groups.get(0), names1);
+        entries.put(groups.get(1), names2);
+        entries.put(groups.get(2), names3);
+        entries.put(groups.get(3), names4);
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -91,7 +91,7 @@ if(response.isSuccessful()){
     final String myResponse = response.body().string();
     for(int i = 0; i <= 4; i++) {
         Scanner scanner = new Scanner(myResponse);
-        List<String> entries = new ArrayList<>();
+        List<String> namesList = new ArrayList<>();
         while (scanner.hasNextLine()) {
             String entry = scanner.nextLine();
             try {
@@ -101,7 +101,7 @@ if(response.isSuccessful()){
                         String name = jsonObject.getString("name");
                         name = name.replaceAll("\\D+", "");
                         if (name.length() >= 1) {
-                            entries.add(name);
+                            namesList.add(name);
                         }
                     }
                 }
@@ -112,7 +112,7 @@ if(response.isSuccessful()){
         scanner.close();
         int j = i;
         List<Integer> entryIntegers = new ArrayList<>();
-        for(String point : entries){
+        for(String point : namesList){
             entryIntegers.add(Integer.parseInt(point));
         }
         Collections.sort(entryIntegers);
