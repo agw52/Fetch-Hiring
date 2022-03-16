@@ -1,6 +1,8 @@
 # Fetch-Hiring
 An app I was asked to create to move forward with the Fetch interview process
 
+Code is in master branch.
+
 Install the app, put in the URL, and click the button to see the results.
 
 APK:
